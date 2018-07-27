@@ -20,7 +20,6 @@ import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 import com.qingstor.sdk.request.ParamValidate;
 import com.qingstor.sdk.utils.QSStringUtil;
-import org.yaml.snakeyaml.Yaml;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -173,42 +172,6 @@ public class EvnContext implements ParamValidate {
         this.setAccessSecret(accessSecret);
         this.setHost(qingcloudStorHost);
         QSConstant.LOGGER_LEVEL = this.getLog_level();
-    }
-
-    public static EvnContext loadFromFile(String filePathName) throws QSException {
-        EvnContext evn = new EvnContext();
-        File f = new File(filePathName);
-        if (f.exists()) {
-            BufferedReader br = null;
-
-            Yaml yaml = new Yaml();
-            try {
-                Map confParams = (Map) yaml.load(new FileInputStream(f));
-                evn.setAccessKey(getYamlConfig("access_key_id", confParams));
-                evn.setAccessSecret(getYamlConfig("secret_access_key", confParams));
-                evn.setProtocol(getYamlConfig("protocol", confParams));
-                evn.setHost(getYamlConfig("host", confParams));
-                evn.setUri(getYamlConfig("uri", confParams));
-                evn.setPort(getYamlConfig("port", confParams));
-                evn.setLog_level(getYamlConfig("log_level", confParams));
-                evn.setAdditionalUserAgent(getYamlConfig("additional_user_agent", confParams));
-                //load request url style form config
-                evn.setRequestUrlStyle(getYamlConfig("request_url_style", confParams));
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                throw new QSException("Yaml config error:", e);
-            }
-
-        }
-        return evn;
-    }
-
-    private static String getYamlConfig(String key, Map config) {
-        if (config.containsKey(key)) {
-            return String.valueOf(config.get(key));
-        }
-        return null;
     }
 
     public String getLog_level() {

@@ -16,6 +16,7 @@
 
 package com.qingstor.sdk.utils;
 
+import com.google.gson.Gson;
 import com.qingstor.sdk.constants.QSConstant;
 import com.qingstor.sdk.exception.QSException;
 
@@ -92,21 +93,7 @@ public class QSStringUtil {
     }
 
     public static String getObjectToJson(Object o) {
-        JSONObject json = null;
-        if (o instanceof Map) {
-            json = new JSONObject();
-            Iterator iterator = ((Map) o).entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry entry = (Map.Entry) iterator.next();
-                String key = (String) entry.getKey();
-                Object bodyObj = ((Map) o).get(key);
-                json.put(key, bodyObj);
-            }
-        } else {
-            json = new JSONObject(o);
-        }
-
-        return json.toString();
+        return new Gson().toJson(o);
     }
 
     public static String percentEncode(String value, String encoding)

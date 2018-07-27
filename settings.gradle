@@ -16,4 +16,4 @@ include 'api'
 include 'services:webservice'
 */
 
-rootProject.name = 'qingstor-sdk-java'
+rootProject.name = 'qingstor-sdk-android'
