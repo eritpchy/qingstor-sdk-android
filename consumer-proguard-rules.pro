@@ -25,3 +25,13 @@
     <fields>;
     public <methods>;
 }
+
+-keepclassmembers class * extends com.qingstor.sdk.model.OutputModel {
+    <fields>;
+    public <methods>;
+}
+
+-keepclassmembers class * extends com.qingstor.sdk.model.RequestInputModel {
+    <fields>;
+    public <methods>;
+}
